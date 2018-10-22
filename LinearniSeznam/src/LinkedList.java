@@ -104,9 +104,24 @@ public class LinkedList
 	boolean insertNth(Object obj, int n)
 	{
 		//zacnemo pri glavi seznama
-		
+		LinkedListElement el = first;
 		//sprehodimo se po elementih dokler ne pridemo do zeljenega mesta
+		for (int i = 0; i < n; i++) {
+			if (el.next == null) {
+				return false;
+			}
+			
+			el = el.next;
+		}
 		
+		
+		LinkedListElement nov = new LinkedListElement(obj, el.next);
+		el.next = nov;
+		
+		if(nov.next == null) {
+			last = el;
+		}
+		return true;
 		// ce je polozaj veljaven
 		//   naredimo nov element
 		//   ustrezno ga povezemo v verigo elementov
@@ -115,18 +130,31 @@ public class LinkedList
 		// sicer
 		//   vrnemo false
 		
-		
-		return false;
 	}
 	
 	//Funkcija deleteNth izbrise element na n-tem mestu v seznamu
 	//(prvi element seznama, ki se nahaja takoj za glavo seznama, je na indeksu 0)
 	boolean deleteNth(int n)
 	{
+		
 		//zacnemo pri glavi seznama
-		
+		LinkedListElement el = first;
 		//sprehodimo se po elementih dokler ne pridemo do zeljenega mesta
+		for (int i = 0; i < n; i++) {
+			if (el.next == null) {
+				return false;
+			}
+			
+			el = el.next;
+		}
+		if (el.next == null) {
+			return false;
+		}
+		if (el.next == last) {
+			last = el;
+		}
 		
+		el.next = el.next.next;
 		// ce je polozaj veljaven
 		//   ustrezno prevezemo elemente seznama tako, da ciljni element izlocimo iz verige
 		//   po potrebi posodobimo kazalec "last"
