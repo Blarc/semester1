@@ -6,7 +6,12 @@ public class GlavniProgram
 		LinkedList list = new LinkedList();
 		
 		list.addFirst(10);
-		list.addLast(20);
+		list.addLast(20);	
+		list.addLast(30);
+		list.addLast(40);
+		list.addLast(50);
+		list.addLast(60);
+		list.addLast(70);
 		list.write();
 		
 		System.out.println("Obracam seznam (iterativno)");

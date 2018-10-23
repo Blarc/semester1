@@ -139,19 +139,23 @@ public class LinkedList
 		
 		//zacnemo pri glavi seznama
 		LinkedListElement el = first;
+		LinkedListElement prev = null;
 		//sprehodimo se po elementih dokler ne pridemo do zeljenega mesta
 		for (int i = 0; i < n; i++) {
 			if (el.next == null) {
 				return false;
 			}
-			
+			prev = el;
 			el = el.next;
 		}
 		if (el.next == null) {
 			return false;
 		}
-		if (el.next == last) {
+		if (el.next == last.next) {
 			last = el;
+		}
+		if (el == last) {
+			last = prev;
 		}
 		
 		el.next = el.next.next;
@@ -163,18 +167,69 @@ public class LinkedList
 		//   vrnemo false
 		
 		
-		return false;
+		return true;
 	}
 	
 	//Funkcija reverse obrne vrstni red elementov v seznamu (pri tem ignorira glavo seznama)
 	void reverse()
 	{
+		
+		LinkedListElement a = null;
+		LinkedListElement b = null;
+		LinkedListElement c = null;
+		
+		if (first.next != null) {
+			a = first.next;
+			if (a.next != null) {
+				b = a.next;
+				if (b.next != null) {
+					c = b.next;
+					last = b;
+					while (c.next != null) {
+						b.next = a;
+						a = b;
+						b = c;
+						c = c.next;
+					}
+					b.next = a;
+					c.next = b;
+					last.next.next = null;
+					first.next = c;
+					
+				} else {
+					last = b;
+					a.next = null;
+					last.next = a;
+					first.next = last;
+				}
+			}
+		}
+		
+		
+		
+		
 		//ne pozabimo na posodobitev kazalca "last"!
 	}
 	
+	void reverseRek(LinkedListElement el) {
+		if(el.next.next == null) {
+			first.next = el.next;
+			el.next.next = el;
+			return;
+		}
+		reverseRek(el.next);
+		el.next.next = el;
+	}
 	//Funkcija reverseRek klice rekurzivno funkcijo, ki obrne vrstni red elementov v seznamu
 	void reverseRek()
 	{
+		if (first.next != null) {
+			if (first.next.next != null) {
+				last = first.next.next;
+				reverseRek(first.next);
+				last.next.next = null;
+			}
+		}
 		// pomagajte si z dodatno funkcijo void reverseRek(LinkedListElement el), ki
 		// obrne del seznama za opazovanim elementom, nato ta element doda na konec (obrnjenega) seznama
 	}
@@ -182,6 +237,27 @@ public class LinkedList
 	//Funkcija removeDuplicates odstrani ponavljajoce se elemente v seznamu
 	void removeDuplicates()
 	{
+		LinkedListElement e1 = first;
+		LinkedListElement e2 = null;
+		LinkedListElement temp = null;
+		int length = length();
+		for (int i = 0; i < length; i++) {
+			e1 = e1.next;
+			e2 = e1;
+			for (int j = 1+i; j < length; j++) {
+				temp = e2;
+				e2 = e2.next;
+				if (e2.element == e1.element) {
+					if (e2 == last) {
+						last = temp;
+					}
+					e2 = temp;
+					deleteNth(j);
+					length--;
+					j--;
+				}
+			}
+		}
 		//ne pozabimo na posodobitev kazalca "last"!
 	}
 }
