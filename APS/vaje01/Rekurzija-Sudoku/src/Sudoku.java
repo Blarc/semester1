@@ -15,7 +15,7 @@ public class Sudoku {
     static boolean resi(int i, int j, int[][] polje) 
     {	
     	// napisi rekurzivno funkcijo
-    	if (j == 9 && i == 8) {
+    	if (i == 9) {
     		return true;
     	}
     	

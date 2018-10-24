@@ -11,7 +11,7 @@ public class naloga1 {
 		}
 		BufferedReader br = new BufferedReader(new FileReader(args[0]));
 		
-		int n = br.read() -'0';
+		/*int n = br.read() -'0';
 		br.read();
 		br.read();
 		int xStart = br.read() -'0';
@@ -35,6 +35,10 @@ public class naloga1 {
 		}
 		
 		System.out.print(Arrays.deepToString(stranke));
+		*/
+		String line;
+		int n = ((br.readLine()).charAt(0)-'0');
+		System.out.println(n);
 	}
 
 }
