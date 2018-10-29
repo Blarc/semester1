@@ -3,27 +3,6 @@ import java.util.Arrays;
 
 public class naloga1 {
 	
-	/*public static class Oseba {
-		private int[] cilj = new int[2];
-		private int[] start = new int[2];
-		
-		public Oseba(int xStart, int yStart, int xCilj, int yCilj) {
-			this.start[0] = xStart;
-			this.start[1] = yStart;
-			this.cilj[0] = xCilj;
-			this.cilj[1] = yCilj;
-			
-		}
-		
-		public int[] getCilj() {
-			return cilj;
-		}
-		
-		public int[] getStart() {
-			return start;
-		}
-	}*/
-	
 	public static int abs(int n) {
 		if (n < 0) {
 			return -n;
@@ -34,38 +13,56 @@ public class naloga1 {
 		return abs(a[0] - b[0]) + abs(a[1] - b[1]);
 	}
 	
-	public static int fun(int[] taxi, int[][] starti, int[][] cilji, int left, int razdalja, int m) {
-		if (left == 0) {
-			return razdalja;
-		}
-		int[] oTaxi = taxi;
-		int[][] oStarti = starti;
-		int oLeft = left;
-		int oRazdalja = razdalja;
+	
+	public static int[] fun(int[] taxi, int[][] starti, int[][] cilji, int left, int m, int index, int n, int atm) {
+		int[] temp1;
+		int[] temp2;
+		int[] tab = new int[m*2+1];
+		int[] min = new int[m*2+1];
+		min[m*2] = Integer.MAX_VALUE;
 		
+		if (left == 0) {
+			tab[m*2] = 0;
+			return tab;
+		}
 		
 		for (int i = 0; i < m; i++) {
-			if (starti[i] != null) {
-				razdalja += razdalja(taxi, starti[i]);
-				taxi = starti[i];
+			
+			if (starti[i] != null && atm <= n) {	
+				temp1 = starti[i];
+				starti[i] = null;
+				tab = fun(temp1, starti, cilji, left, m, index+1, n, atm+1);
+				tab[index] = i+1;
+				tab[m*2] += razdalja(taxi, temp1);
+				starti[i] = temp1;
 				
-				if (cilji[i] == starti[i]) {
-					left--;
-					starti[i] = null;
-					System.out.println(fun(taxi, starti, cilji, left, razdalja, m));
-					
-				} else {
-					starti[i] = cilji[i];
-					System.out.println(fun(taxi, starti, cilji, left, razdalja, m));
+				if (tab[m*2] < min[m*2]) {
+					min = tab;
 				}
-				System.out.println(fun(oTaxi, oStarti, cilji, oLeft, oRazdalja, m));
+				
+			} 
+			else if (cilji[i] != null && atm > 0) {
+				temp2 = cilji[i];
+				cilji[i] = null;
+				tab = fun(temp2, starti, cilji, left-1, m, index+1, n, atm-1);
+				tab[index] = i+1;
+				tab[m*2] += razdalja(taxi, temp2);
+				cilji[i] = temp2;
+				
+				if (tab[m*2] < min[m*2]) {
+					min = tab;
+				}
 				
 			}
 			
+			
+					
 		}
-		return 0;
+
+		//System.out.println(Arrays.toString(tab));
+		return min;
 	}
-	
+
 	
 	public static void main(String[] args) throws IOException {
 		
@@ -75,27 +72,18 @@ public class naloga1 {
 		}
 		
 		BufferedReader br = new BufferedReader(new FileReader(args[0]));
-		
+	
 		String[] line;
 		int n = Integer.parseInt((br.readLine().split(""))[0]);
 		line = br.readLine().split(",");
 		int[] taxi = {Integer.parseInt(line[0]), Integer.parseInt(line[1])} ;
-		int m = Integer.parseInt((br.readLine().split(""))[0]);
+		line = br.readLine().split(",");
+		int m = Integer.parseInt(line[0]);
 		
 		int[][] starti = new int[m][2];
 		int[][] cilji = new int[m][2];
 		
 		String[][] strankeNizi = new String[m][5];
-		
-		//Oseba[] stranke = new Oseba[m];
-		
-		/*for (int i = 0; i < m; i++) {
-			strankeNizi[i] = br.readLine().split(",");
-			stranke[i] = new Oseba(Integer.parseInt(strankeNizi[i][1]),
-								   Integer.parseInt(strankeNizi[i][2]),
-								   Integer.parseInt(strankeNizi[i][3]),
-								   Integer.parseInt(strankeNizi[i][4]));
-		}*/
 		
 
 		for (int i = 0; i < m; i++) {
@@ -106,8 +94,10 @@ public class naloga1 {
 			cilji[i][1] = Integer.parseInt(strankeNizi[i][4]);
 		}
 		
-		fun(taxi, starti, cilji, m, 0, m);
+		System.out.println("n: " + n);
+		System.out.println("m: "+ m);
 		
+		System.out.println(Arrays.toString(fun(taxi, starti, cilji, m, m, 0, n, 0)));
 		
 		br.close();
 	}
