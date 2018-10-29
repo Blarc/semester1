@@ -12,57 +12,34 @@ public class naloga1 {
 	public static int razdalja(int[] a, int[] b) {
 		return abs(a[0] - b[0]) + abs(a[1] - b[1]);
 	}
-	
-	
-	public static int[] fun(int[] taxi, int[][] starti, int[][] cilji, int left, int m, int index, int n, int atm) {
-		int[] temp1;
-		int[] temp2;
-		int[] tab = new int[m*2+1];
-		int[] min = new int[m*2+1];
-		min[m*2] = Integer.MAX_VALUE;
-		
-		if (left == 0) {
-			tab[m*2] = 0;
-			return tab;
-		}
-		
-		for (int i = 0; i < m; i++) {
-			
-			if (starti[i] != null && atm <= n) {	
-				temp1 = starti[i];
-				starti[i] = null;
-				tab = fun(temp1, starti, cilji, left, m, index+1, n, atm+1);
-				tab[index] = i+1;
-				tab[m*2] += razdalja(taxi, temp1);
-				starti[i] = temp1;
-				
-				if (tab[m*2] < min[m*2]) {
-					min = tab;
-				}
-				
-			} 
-			else if (cilji[i] != null && atm > 0) {
-				temp2 = cilji[i];
-				cilji[i] = null;
-				tab = fun(temp2, starti, cilji, left-1, m, index+1, n, atm-1);
-				tab[index] = i+1;
-				tab[m*2] += razdalja(taxi, temp2);
-				cilji[i] = temp2;
-				
-				if (tab[m*2] < min[m*2]) {
-					min = tab;
-				}
-				
-			}
-			
-			
-					
-		}
 
-		//System.out.println(Arrays.toString(tab));
-		return min;
+	public static int fun() {
+		
+		return 0;
 	}
-
+	
+	public static int[] swap(int[] tab, int i, int j) 
+    { 
+		int temp = tab[i];
+		tab[i] = tab[j];
+		tab[j] = temp;
+		return tab;
+    } 
+	
+	public static void permute(int[]tab, int l, int r) 
+    { 
+        if (l == r) 
+            System.out.println(Arrays.toString(tab)); 
+        else
+        { 
+            for (int i = l; i <= r; i++) 
+            { 
+                tab = swap(tab,l,i); 
+                permute(tab, l+1, r); 
+                tab = swap(tab,l,i); 
+            } 
+        } 
+    } 
 	
 	public static void main(String[] args) throws IOException {
 		
@@ -94,12 +71,14 @@ public class naloga1 {
 			cilji[i][1] = Integer.parseInt(strankeNizi[i][4]);
 		}
 		
-		System.out.println("n: " + n);
-		System.out.println("m: "+ m);
-		
-		System.out.println(Arrays.toString(fun(taxi, starti, cilji, m, m, 0, n, 0)));
-		
 		br.close();
+		
+		//System.out.println("n: " + n);
+		//System.out.println("m: "+ m);
+		
+		int tab[] = {1,2,3,4,5,6,7,8,9,10,11};
+		permute(tab, 0, 10);
+		
 	}
 
 }
