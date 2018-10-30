@@ -1,0 +1,121 @@
+/* SELECT * 
+FROM stranka */
+    /* SELECT id, ime
+FROM agent
+WHERE mesto = 'Kranj' */
+    /*
+ne dela
+SELECT DISTINCT 
+izdelek_id
+FROM narocilo
+*/
+    /*
+SELECT DISTINCT s.ime, a.ime
+FROM narocilo n, stranka s, agent a
+WHERE s.id = n.stranka_id AND a.id = n.agent_id
+*/
+    /* A
+SELECT * 0.4 * n.kolicina * i.cena - (s.popust + n.marza) *0.01 * n.kolicina * i.cena AS
+Dobicek
+FROM narocilo n, stranka s, agent a, izdelek i
+WHERE s.id = n.stranka_id AND a.id = n.agent_id AND n.izdelek_id = i.id
+*/
+    /* B
+SELECT s1.id, s2.id, s2.mesto
+FROM stranka s1, stranka s2
+WHERE s1.mesto = s2.mesto AND s1.id < s2.id
+*/
+    /* C
+SELECT DISTINCT n1.izdelek_id
+FROM narocilo n1, narocilo n2
+WHERE n1.izdelek_id = n2.izdelek_id AND n1.stranka_id < n2.stranka_id
+*/
+    /* D
+SELECT DISTINCT n1.stranka_id
+FROM narocilo n1, narocilo n2
+WHERE n1.izdelek_id = n2.izdelek_id AND n2.agent_id = 6
+*/
+    /* DN 1
+SELECT CONCAT('Stranki ', id, ' je ime ', ime, ' in prihaja iz ', mesto)
+FROM stranka
+*/
+    /* A
+SELECT s.ime
+FROM stranka s, narocilo n
+WHERE s.id = n.stranka_id AND n.izdelek_id = 2
+*/
+    /* B
+SELECT ime
+FROM stranka
+WHERE 2 IN (
+    SELECT izdelek_id
+    FROM narocilo
+    WHERE stranka_id = stranka.id)
+*/
+    /* C
+SELECT ime 
+FROM stranka
+WHERE id IN (
+	SELECT stranka_id
+	FROM narocilo
+	WHERE agent_id IN (
+		SELECT id
+		FROM agent
+		WHERE mesto IN ('Kranj', 'Koper')
+    )
+)
+*/
+    /* A
+SELECT *
+FROM agent
+WHERE marza <= ALL (
+    SELECT marza
+	FROM agent )
+*/
+    /* B
+SELECT id
+FROM agent
+WHERE marza < ANY (
+    SELECT marza
+    FROM agent )
+*/
+    /* C
+SELECT *
+FROM stranka
+WHERE 50 < ALL (
+    SELECT cena
+    FROM narocilo n, izdelek i
+    WHERE izdelek_id = i.id AND stranka_id = stranka.id )
+
+AND EXISTS (
+    SELECT cena
+    FROM narocilo n, izdelek i
+    WHERE izdelek_id = i.id AND stranka_id = stranka.id )
+*/
+    /*
+
+
+
+
+
+
+
+/*
+SELECT ime, priimek
+FROM trgovec t, dobavnica d
+WHERE t.id = d.trgovec_id AND kolicina >= ALL (
+    SELECT kolicina
+    FROM dobavnica )
+    */
+
+/* B
+SELECT *
+FROM del
+WHERE del.id NOT IN (
+    SELECT del_id
+    FROM dobavnica )
+*/
+DN 2
+3 SELECTI + 2 NOT EXISTS = DELJENJE
+*/
+    

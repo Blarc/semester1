@@ -34,9 +34,14 @@ public class naloga1 {
 		return abs(a[0] - b[0]) + abs(a[1] - b[1]);
 	}
 	
-	public int fun() {
+	/*public int fun(int stStrank, int razdalja, int xTaxi, int yTaxi, Oseba[] stranke, int atmStrank) {
+		if (stStrank == 0) {
+			return razdalja;
+		}
+		
+		
 		return 0;
-	}
+	}*/
 	
 	public static void main(String[] args) throws IOException {
 		
@@ -66,7 +71,9 @@ public class naloga1 {
 		}
 		
 		
-		
+		for (int i = 0; i < m; i++) {
+			
+		}
 		
 	}
 
