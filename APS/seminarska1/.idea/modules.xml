@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/naloga1/naloga1.iml" filepath="$PROJECT_DIR$/naloga1/naloga1.iml" />
+      <module fileurl="file://$PROJECT_DIR$/naloga2/naloga2.iml" filepath="$PROJECT_DIR$/naloga2/naloga2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/naloga3/naloga3.iml" filepath="$PROJECT_DIR$/naloga3/naloga3.iml" />
+      <module fileurl="file://$PROJECT_DIR$/naloga4/naloga4.iml" filepath="$PROJECT_DIR$/naloga4/naloga4.iml" />
+      <module fileurl="file://$PROJECT_DIR$/naloga5/naloga5.iml" filepath="$PROJECT_DIR$/naloga5/naloga5.iml" />
+      <module fileurl="file://$PROJECT_DIR$/seminarska1.iml" filepath="$PROJECT_DIR$/seminarska1.iml" />
+      <module fileurl="file://$PROJECT_DIR$/naloga2/src.iml" filepath="$PROJECT_DIR$/naloga2/src.iml" />
+    </modules>
+  </component>
+</project>
