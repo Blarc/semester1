@@ -4,16 +4,7 @@
     <bookmark url="file://$PROJECT_DIR$/naloga2/src/naloga2.java" line="17" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1dc6b792-9c3f-4359-a8b4-24f1fdd3e8ff" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/naloga2/test.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/naloga1/src/test.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/naloga2/src/naloga2$Malloc.class" beforeDir="false" afterPath="$PROJECT_DIR$/naloga2/src/naloga2$Malloc.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/naloga2/src/naloga2.class" beforeDir="false" afterPath="$PROJECT_DIR$/naloga2/src/naloga2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/naloga2/src/naloga2.java" beforeDir="false" afterPath="$PROJECT_DIR$/naloga2/src/naloga2.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/naloga2/src/test" beforeDir="false" />
-    </list>
+    <list default="true" id="1dc6b792-9c3f-4359-a8b4-24f1fdd3e8ff" name="Default Changelist" comment="" />
     <ignored path="$PROJECT_DIR$/naloga1/bin/" />
     <ignored path="$PROJECT_DIR$/naloga2/bin/" />
     <ignored path="$PROJECT_DIR$/naloga3/bin/" />
@@ -62,11 +53,12 @@
     <session id="1726024647">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="3" />
+          <entry key="project.closed" value="4" />
           <entry key="project.open.time.3" value="1" />
           <entry key="project.open.time.39" value="1" />
+          <entry key="project.open.time.5" value="1" />
           <entry key="project.open.time.7" value="1" />
-          <entry key="project.opened" value="3" />
+          <entry key="project.opened" value="4" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -103,8 +95,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/naloga2/src/naloga2.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1615">
-              <caret line="173" column="47" lean-forward="true" selection-start-line="173" selection-start-column="47" selection-end-line="173" selection-end-column="47" />
+            <state relative-caret-position="262">
+              <caret line="173" column="47" selection-start-line="173" selection-start-column="47" selection-end-line="173" selection-end-column="47" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -115,8 +107,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/naloga2/test.txt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="516">
-              <caret line="50001" lean-forward="true" selection-start-line="50001" selection-end-line="50001" />
+            <state relative-caret-position="850017">
+              <caret line="50001" selection-start-line="50001" selection-end-line="50001" />
             </state>
           </provider>
         </entry>
@@ -233,11 +225,12 @@
       <workItem from="1541263250911" duration="10287000" />
       <workItem from="1541276590456" duration="6435000" />
       <workItem from="1541324413482" duration="26481000" />
+      <workItem from="1541369696818" duration="70000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="53593000" />
+    <option name="totallyTimeSpent" value="53663000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -260,7 +253,7 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32968238" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.4989339" weight="0.07809111" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.4989339" weight="0.72017354" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39978093" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -340,20 +333,20 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/naloga2/test.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="516">
-          <caret line="50001" lean-forward="true" selection-start-line="50001" selection-end-line="50001" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/naloga2/src/naloga2.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1615">
-          <caret line="173" column="47" lean-forward="true" selection-start-line="173" selection-start-column="47" selection-end-line="173" selection-end-column="47" />
+        <state relative-caret-position="262">
+          <caret line="173" column="47" selection-start-line="173" selection-start-column="47" selection-end-line="173" selection-end-column="47" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/naloga2/test.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="850017">
+          <caret line="50001" selection-start-line="50001" selection-end-line="50001" />
         </state>
       </provider>
     </entry>

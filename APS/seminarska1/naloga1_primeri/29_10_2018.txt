@@ -4,7 +4,7 @@
 4. 11532 ms
 5. 30609 ms
 6. 29 ms
-7. NAROBE
+7. 29 ms
 8. 11706 ms
 9. sem šel na WC pa še vedno ni
 10. nebom niti probavou
