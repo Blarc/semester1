@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<workspace>
+    <project>
+        <path>$WS_DIR$\..\STM32F4-Discovery_FW_V1.1.0\Project\Peripheral_Examples\IO_Toggle\EWARM\IO_Toggle.ewp</path>
+    </project>
+    <batchBuild />
+</workspace>
