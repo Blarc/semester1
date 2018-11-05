@@ -1,0 +1,21 @@
+4
+Janez Novak
+2
+Analiza,9
+Programiranje,8
+Tina Oblak
+4
+Analiza,10
+Programiranje,10
+Diskretne strukture,8
+Fizika,9
+Ana Dolenc
+1
+Programiranje,8
+Marko Kralj
+5
+Programiranje,7
+Analiza,7
+Fizika,6
+Diskretne strukture,6
+Anglescina,9
