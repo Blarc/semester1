@@ -8,6 +8,7 @@ import java.util.Map;
 
 
 public class naloga1_ver3_tab {
+	public static final int PRIME = 20431;
 	
 	public static class State {
 		final int[] pos;
@@ -21,18 +22,18 @@ public class naloga1_ver3_tab {
 		}
 		
 		public int makeKey() {
-			int len = ongoing.length;
-			int h = (1 << 2*len); //m
-			for (int i = 0; i < len; i++) {
-				if (i < len) {
-					h = h | (completed[i] << (len - i -1));
-				}
-				else {
-					h = h | (ongoing[i-len] << (len - i -1));
-				}
+			int[] array = new int[ongoing.length * 2];
+			for (int i = 0; i < ongoing.length; i++) {
+				array[i] = ongoing[i];
+				array[i+ongoing.length] = completed[i];
 			}
-			
-			return h;
+			//System.out.println(Arrays.toString(array));
+		
+		    int h = (1 << array.length);
+		    for (int i = 0; i < array.length; i++) {
+		        h = h | (array[i] << (array.length - i - 1));
+		    }
+		    return h;
 		}
 		
 	}
@@ -67,9 +68,8 @@ public class naloga1_ver3_tab {
 		
 		State curState = new State(taxi, ongoing, completed);
 		int key = curState.makeKey();
-		if (states[taxi[0]][taxi[1]][key] != null) {
-			System.out.println(key);
-			return states[taxi[0]][taxi[1]][key];
+		if (states[taxi[0]][taxi[1]][key%PRIME] != null) {
+			return states[taxi[0]][taxi[1]][key%PRIME];
 		}
 		
 		for (int i = 0; i < m; i++) {	
@@ -104,7 +104,7 @@ public class naloga1_ver3_tab {
 			}			
 		}
 		
-		states[taxi[0]][taxi[1]][key] = min;
+		states[taxi[0]][taxi[1]][key%PRIME] = min;
 		return min;
 	}
 	
@@ -133,7 +133,7 @@ public class naloga1_ver3_tab {
 		int[] ongoing = new int[m];
 		
 		String[][] strankeNizi = new String[m][5];
-		int[][][][] states = new int[200][200][200][m*2+1];
+		int[][][][] states = new int[200][200][PRIME][m*2+1];
 		
 		/*
 		int[] a = {1,0,1,1};

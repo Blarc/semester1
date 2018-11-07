@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class naloga1_ver4 {
+	public static final int PRIME = 20431;
 	
 	
 	public static class State {
@@ -18,17 +19,18 @@ public class naloga1_ver4 {
 		}
 		
 		public int makeKey() {
-			int len = ongoing.length;
-			int h = (1 << 2*len); //m
-			for (int i = 0; i < len; i++) {
-				if (i < len) {
-					h = h | (completed[i] << (len - i -1));
+				int[] array = new int[ongoing.length * 2];
+				for (int i = 0; i < ongoing.length; i++) {
+					array[i] = ongoing[i];
+					array[i+ongoing.length] = completed[i];
 				}
-				else {
-					h = h | (ongoing[i-len] << (len - i -1));
-				}
-			}
-			return h;
+				//System.out.println(Arrays.toString(array));
+			
+			    int h = (1 << array.length);
+			    for (int i = 0; i < array.length; i++) {
+			        h = h | (array[i] << (array.length - i - 1));
+			    }
+			    return h%PRIME;
 		}
 	}
 	
@@ -61,9 +63,10 @@ public class naloga1_ver4 {
 		}
 		
 		
-		//SHOULD BE HASHMAP!!!
+		//SHOULD BE HASHTABLE!!!
 		State curState = new State(taxi, ongoing, completed);
 		int key = curState.makeKey();
+		
 		if (states[taxi[0]][taxi[1]][key] != 0) {
 			return states[taxi[0]][taxi[1]][key];
 		}
@@ -130,18 +133,15 @@ public class naloga1_ver4 {
 		int[] completed = new int[m];
 		int[] ongoing = new int[m];
 		
-		int[][][] states = new int[200][200][20000];
+		int[][][] states = new int[201][201][PRIME];
 		
 		/*int[] a = {1,0,1};
 		int[] b = {0,0,1};
 		int[] pos = {17, 10};
 		
 		State nov = new State(pos, a, b);
-		String key = nov.makeKey();
-		states.put(key, 3);
-		if (states.containsKey(key)) {
-			System.out.println(states.get(key));
-		}*/
+		long key = nov.makeKey();
+		System.out.println("Key: " + key);*/
 		
 		String[][] strankeNizi = new String[m][5];	
 
@@ -154,12 +154,12 @@ public class naloga1_ver4 {
 		}
 		
 		long startTime = System.currentTimeMillis();
-		System.out.println("n: " + n);
-		System.out.println("taxi: " + Arrays.toString(taxi));
-		System.out.println("m: " + m);
-		System.out.println("Stranke: " + Arrays.deepToString(starti));
+		//System.out.println("n: " + n);
+		//System.out.println("taxi: " + Arrays.toString(taxi));
+		//System.out.println("m: " + m);
+		//System.out.println("Stranke: " + Arrays.deepToString(starti));
 		
-		System.out.println(fun(taxi, starti, cilji, ongoing, completed, m, m, 0, n, 0, states));
+		System.out.println("The Shortest Path: " + fun(taxi, starti, cilji, ongoing, completed, m, m, 0, n, 0, states));
 		
 		
 		long stopTime = System.currentTimeMillis();
