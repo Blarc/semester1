@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class naloga1_ver4 {
-	public static final int PRIME = 20431;
+	public static final int PRIME = 4007;
 	
 	
 	public static class State {

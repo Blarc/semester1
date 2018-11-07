@@ -4,7 +4,13 @@
     <bookmark url="file://$PROJECT_DIR$/naloga2/src/naloga2.java" line="17" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1dc6b792-9c3f-4359-a8b4-24f1fdd3e8ff" name="Default Changelist" comment="" />
+    <list default="true" id="1dc6b792-9c3f-4359-a8b4-24f1fdd3e8ff" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/naloga1/src/naloga1_ver4.java" beforeDir="false" afterPath="$PROJECT_DIR$/naloga1/src/naloga1_ver4.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/naloga1/src/test.txt" beforeDir="false" afterPath="$PROJECT_DIR$/naloga1/src/test.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/naloga2/src/naloga2.java" beforeDir="false" afterPath="$PROJECT_DIR$/naloga2/src/naloga2.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/naloga2/test.txt" beforeDir="false" afterPath="$PROJECT_DIR$/naloga2/test.txt" afterDir="false" />
+    </list>
     <ignored path="$PROJECT_DIR$/naloga1/bin/" />
     <ignored path="$PROJECT_DIR$/naloga2/bin/" />
     <ignored path="$PROJECT_DIR$/naloga3/bin/" />
@@ -21,10 +27,11 @@
     <session id="-1257172733">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="1" />
+          <entry key="project.closed" value="2" />
           <entry key="project.open.time.21" value="1" />
+          <entry key="project.open.time.26" value="1" />
           <entry key="project.open.time.8" value="1" />
-          <entry key="project.opened" value="2" />
+          <entry key="project.opened" value="3" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -41,12 +48,12 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="java" value="2239" />
+          <entry key="java" value="2242" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="2239" />
+          <entry key="JAVA" value="2242" />
         </counts>
       </usages-collector>
     </session>
@@ -95,11 +102,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/naloga2/src/naloga2.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="262">
-              <caret line="173" column="47" selection-start-line="173" selection-start-column="47" selection-end-line="173" selection-end-column="47" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+            <state relative-caret-position="15">
+              <caret line="139" column="52" selection-start-line="139" selection-start-column="52" selection-end-line="139" selection-end-column="52" />
             </state>
           </provider>
         </entry>
@@ -107,8 +111,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/naloga2/test.txt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="850017">
-              <caret line="50001" selection-start-line="50001" selection-end-line="50001" />
+            <state relative-caret-position="180">
+              <caret line="36" column="6" lean-forward="true" selection-start-line="36" selection-start-column="6" selection-end-line="36" selection-end-column="6" />
             </state>
           </provider>
         </entry>
@@ -226,11 +230,12 @@
       <workItem from="1541276590456" duration="6435000" />
       <workItem from="1541324413482" duration="26481000" />
       <workItem from="1541369696818" duration="70000" />
+      <workItem from="1541600532777" duration="274000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="53663000" />
+    <option name="totallyTimeSpent" value="53937000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -242,7 +247,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <frame x="67" y="25" width="1533" height="875" extended-state="6" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" weight="0.26367614" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -253,13 +258,13 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32968238" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.4989339" weight="0.72017354" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.4989339" weight="0.3489933" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39978093" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32968238" />
       <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Terminal" order="8" sideWeight="0.49946696" weight="0.18510406" />
+      <window_info anchor="bottom" id="Terminal" order="8" sideWeight="0.49946696" weight="0.18389262" />
       <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.5010661" side_tool="true" weight="0.35900217" />
       <window_info anchor="bottom" id="Version Control" order="10" show_stripe_button="false" />
       <window_info anchor="bottom" id="Messages" order="11" sideWeight="0.4978678" weight="0.31453362" />
@@ -319,34 +324,19 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/naloga2/src/test" />
-    <entry file="jar://C:/Program Files/Java/jdk1.8.0_144/jre/lib/rt.jar!/sun/nio/cs/StreamDecoder.class">
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_144/jre/lib/rt.jar!/sun/nio/cs/StreamDecoder.class" />
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_144/src.zip!/java/net/SocketInputStream.java" />
+    <entry file="file://$PROJECT_DIR$/naloga2/test.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="451">
-          <caret line="62" selection-start-line="62" selection-end-line="62" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://C:/Program Files/Java/jdk1.8.0_144/src.zip!/java/net/SocketInputStream.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="176">
-          <caret line="140" selection-start-line="140" selection-end-line="140" />
+        <state relative-caret-position="180">
+          <caret line="36" column="6" lean-forward="true" selection-start-line="36" selection-start-column="6" selection-end-line="36" selection-end-column="6" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/naloga2/src/naloga2.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="262">
-          <caret line="173" column="47" selection-start-line="173" selection-start-column="47" selection-end-line="173" selection-end-column="47" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/naloga2/test.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="850017">
-          <caret line="50001" selection-start-line="50001" selection-end-line="50001" />
+        <state relative-caret-position="15">
+          <caret line="139" column="52" selection-start-line="139" selection-start-column="52" selection-end-line="139" selection-end-column="52" />
         </state>
       </provider>
     </entry>
