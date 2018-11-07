@@ -8,3 +8,15 @@
 8. 11706 ms
 9. sem šel na WC pa še vedno ni
 10. nebom niti probavou
+
+6.11.2018
+1. 0 ms
+2. 923 ms
+3. 4 ms
+4. 11532 ms
+5. 30609 ms
+6. 29 ms
+7. 29 ms
+8. 11706 ms
+9. sem šel na WC pa še vedno ni
+10. nebom niti probavou
