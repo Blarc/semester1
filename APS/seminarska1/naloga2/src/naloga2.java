@@ -137,7 +137,7 @@ public class naloga2 {
     }
 
     public static void main(String[] args) throws IOException{
-
+        long startTime = System.currentTimeMillis();
         if(args.length < 0) {
             System.out.println("Uporaba: java naloga2 <vhodna datoteka> <izhodna datoteka>");
             System.exit(1);
@@ -150,7 +150,6 @@ public class naloga2 {
         System.out.println("n: " + n);
 
 
-        long startTime = System.currentTimeMillis();
         Malloc plswork = new Malloc();
         for (int i = 0; i < n; i++) {
             line = br.readLine().split(",");
