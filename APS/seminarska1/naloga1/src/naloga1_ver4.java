@@ -1,10 +1,8 @@
 import java.io.*;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
 
 public class naloga1_ver4 {
-	public static final int PRIME = 20431;
+	public static final int PRIME = 201;
+	public static final int PRIMEC = 47;
 	
 	
 	public static class State {
@@ -34,15 +32,6 @@ public class naloga1_ver4 {
 		}
 	}
 	
-	public static boolean compareArrays(int[] a, int[] b) {
-		for (int i = 0; i < a.length; i++) {
-			if (a[i] != b[i]) {
-				return false;
-			}
-		}
-		return true;
-	}
-	
 	public static int abs(int n) {
 		if (n < 0) {
 			return -n;
@@ -53,8 +42,12 @@ public class naloga1_ver4 {
 		return abs(a[0] - b[0]) + abs(a[1] - b[1]);
 	}
 	
+	public static int kC(int a) {
+		return a%47;
+	}
 	
-	public static int fun(int[] taxi, int[][] starti, int[][] cilji, int[] ongoing, int[] completed, int left, int m, int index, int n, int atm, int[][][] states) {
+	
+	public static int fun(int[] taxi, int[][] starti, int[][] cilji, int[] ongoing, int[] completed, int left, int index, int atm, int[][][][] states) {
 		int[] tab = new int[m*2+1];
 		int minVal = Integer.MAX_VALUE;
 		
@@ -67,11 +60,13 @@ public class naloga1_ver4 {
 		State curState = new State(taxi, ongoing, completed);
 		int key = curState.makeKey();
 		
-		if (states[taxi[0]][taxi[1]][key] != 0) {
-			return states[taxi[0]][taxi[1]][key];
+		if (states[taxi[0]%47][taxi[1]%47][key][0] != key) {
+			for (int i = 0; i < PRIME; i++) {
+				if (states[taxi[0]%PRIMEC][taxi[1]%PRIMEC][(key+i)%PRIME][0] == key) {
+					return states[taxi[0]%PRIMEC][taxi[1]%PRIMEC][(key+i)%PRIME][1];
+				}
+			}
 		}
-		
-	
 		
 		for (int i = 0; i < m; i++) {
 			if (completed[i] < 1) {
@@ -81,7 +76,7 @@ public class naloga1_ver4 {
 				if (ongoing[i] > 0) {
 					ongoing[i] = 0;
 					completed[i] = 1;
-					int val = razdalja(taxi, cilji[i]) + fun(cilji[i], starti, cilji, ongoing, completed, left-1, m, index+1, n, atm-1, states);
+					int val = razdalja(taxi, cilji[i]) + fun(cilji[i], starti, cilji, ongoing, completed, left-1, index+1, atm-1, states);
 					tab[index] = i+1;
 					
 					if (val < minVal) {
@@ -91,7 +86,7 @@ public class naloga1_ver4 {
 				} 
 				else if (atm < n) {
 					ongoing[i] = 1;
-					int val = razdalja(taxi, starti[i]) + fun(starti[i], starti, cilji, ongoing, completed, left, m, index+1, n, atm+1, states);
+					int val = razdalja(taxi, starti[i]) + fun(starti[i], starti, cilji, ongoing, completed, left, index+1, atm+1, states);
 					tab[index] = i+1;
 					
 					if (val < minVal) {
@@ -102,15 +97,21 @@ public class naloga1_ver4 {
 				ongoing[i] = oldOngoing;
 				completed[i] = oldCompleted;
 			}			
-		}
+		}		
 		
-		
-		states[taxi[0]][taxi[1]][key] = minVal;
+		for (int i = 0; i < PRIME; i++) {
+			if (states[taxi[0]%PRIMEC][taxi[1]%PRIMEC][(key+i)%PRIME][0] == 0) {
+				states[taxi[0]%PRIMEC][taxi[1]%PRIMEC][(key+i)%PRIME][0] = key;
+				states[taxi[0]%PRIMEC][taxi[1]%PRIMEC][(key+i)%PRIME][1] = minVal;
+				break;
+			}
+		}	
 		return minVal;
 	}
 	
 	
-	
+	public static int n;
+	public static int m;
 	
 	public static void main(String[] args) throws IOException {
 		
@@ -122,18 +123,18 @@ public class naloga1_ver4 {
 		BufferedReader br = new BufferedReader(new FileReader(args[0]));
 	
 		String[] line;
-		int n = Integer.parseInt((br.readLine().split(" "))[0]);
+		n = Integer.parseInt((br.readLine().split(" "))[0]);
 		line = br.readLine().split(",");
 		int[] taxi = {Integer.parseInt(line[0]), Integer.parseInt(line[1])} ;
 		line = br.readLine().split(",");
-		int m = Integer.parseInt(line[0]);
+		m = Integer.parseInt(line[0]);
 		
 		int[][] starti = new int[m][2];
 		int[][] cilji = new int[m][2];
 		int[] completed = new int[m];
 		int[] ongoing = new int[m];
 		
-		int[][][] states = new int[201][201][PRIME];
+		int[][][][] states = new int[47][47][PRIME][2];
 		
 		/*int[] a = {1,0,1};
 		int[] b = {0,0,1};
@@ -159,7 +160,8 @@ public class naloga1_ver4 {
 		//System.out.println("m: " + m);
 		//System.out.println("Stranke: " + Arrays.deepToString(starti));
 		
-		System.out.println("The Shortest Path: " + fun(taxi, starti, cilji, ongoing, completed, m, m, 0, n, 0, states));
+		
+		System.out.println("The Shortest Path: " + fun(taxi, starti, cilji, ongoing, completed, m, 0, 0, states));
 		
 		
 		long stopTime = System.currentTimeMillis();
