@@ -1,7 +1,6 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Arrays;
 
 public class naloga2 {
 
@@ -20,7 +19,7 @@ public class naloga2 {
         }
 
 
-        //v zadnjo se zapiše oboje
+        //v zadnjo se zapise oboje
         public boolean alloc(int size, int id) {
             if (idTab[id-1] == 0) {
                 for (int i = atm; i < length; i += tab[i][1]) {
@@ -138,7 +137,7 @@ public class naloga2 {
 
     public static void main(String[] args) throws IOException{
         long startTime = System.currentTimeMillis();
-        if(args.length < 0) {
+        if(args.length < 1) {
             System.out.println("Uporaba: java naloga2 <vhodna datoteka> <izhodna datoteka>");
             System.exit(1);
         }
@@ -166,7 +165,7 @@ public class naloga2 {
                     plswork.alloc(bard, sion);
                     break;
                 case "f":
-                    //System.out.println(bard);
+                    System.out.println(bard);
                     plswork.free(bard);
                     break;
                 case "d":
@@ -175,10 +174,11 @@ public class naloga2 {
                     break;
                     default: System.out.println("invalid");
             }
-            if (i == n-1) {
+           /* if (i == n-1) {
                 System.out.println(Arrays.toString(line));
-            }
+            } */
         }
+        br.close();
 
 
         int[][] tab = plswork.tab;
