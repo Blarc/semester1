@@ -93,9 +93,14 @@ public class naloga2 {
         //CLEAN UP AWAITS
         public void defrag(int a) {
             for (int j = 0; j < a; j++) {
-                while(tab[atm][0] != 0) {
+                while(tab[atm][0] != 0 && atm < length) {
                     atm += tab[atm][1];
                 }
+                
+                if (tab[atm][0] != 0) {
+                	return;
+                }
+                
                 int next = tab[atm][1];
                 int temp = next;
 
@@ -120,19 +125,6 @@ public class naloga2 {
                 idTab[tab[atm][0] - 1] -= temp;
             }
         }
-
-        /*public void defrag(int a) {
-            for (int i = 0; i < a; i++) {
-                while(tab[atm][0] != 0) {
-                    atm += tab[atm][1];
-                }
-                int next = tab[atm][1];
-                int id = tab[atm + next][0];
-                int size = tab[atm + next][1];
-                free(id);
-                alloc(size, id);
-            }
-        }*/
     }
 
     public static void main(String[] args) throws IOException{
@@ -165,7 +157,7 @@ public class naloga2 {
                     plswork.alloc(bard, sion);
                     break;
                 case "f":
-                    System.out.println(bard);
+                    //System.out.println(bard);
                     plswork.free(bard);
                     break;
                 case "d":
