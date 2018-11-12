@@ -139,3 +139,116 @@ WHERE
         	p.mesto = 'Kranj'
     )
 */
+
+/* A
+SELECT COUNT (c.id)
+FROM cabel c, privacy p, embassy e 
+WHERE
+	c.privacy_id = p.id AND
+    c.embassy_id = e.id AND
+    p.classification = 'Confidential' AND
+    e.name LIKE '%Ljubljana%' AND
+    c.date >= '2000-01-01'
+    
+*/
+
+/* B
+SELECT COUNT(*) AS Stevilo, p.classification AS Nivo
+FROM cable c, privacy p 
+WHERE c.privacy_id = p.id
+GROUP BY p.id, p.classification
+*/
+
+/* C1
+SELECT c.date, COUNT(c.id)
+FROM cable c, privacy p
+WHERE 
+	c.privacy_id = p.id AND
+    p.classification LIKE ('%Secret%')
+GROUP BY c.date
+ORDER BY COUNT(c.id) DESC
+*/
+
+/* C2
+SELECT c.date, COUNT(c.id) AS Stevilo
+FROM cable c, privacy p
+WHERE 
+	c.privacy_id = p.id AND
+    p.classification LIKE ('%Secret%')
+GROUP BY c.date
+HAVING Stevilo > 300
+*/
+
+/* D sm zamudu */
+
+/* E
+SELECT c.date, count(c.id) AS Stevilo
+FROM cable c, privacy p 
+WHERE
+	c.privacy_id = p.id AND
+    p.classification LIKE '%secret%'
+GROUP BY c.date
+HAVING Stevilo = (
+    SELECT MAX(Stevilo) FROM (
+        SELECT COUNT(c.id) AS Stevilo
+        FROM cable c, privacy p
+        WHERE
+        	c.privacy_id = p.id AND
+        	p.classification LIKE '%secret%'
+        GROUP BY c.date
+    ) ime_tabele
+)
+*/
+
+/* 8 NALOGA */
+
+/* A
+SELECT c.date, COUNT(c.id) as Stevilo, GROUP_CONCAT(DISTINCT e.name SEPARATOR ',')
+FROM cable c, embassy e
+WHERE c.embassy_id = e.id
+GROUP BY c.date
+ORDER BY Stevilo DESC
+LIMIT 10
+OFFSET 10
+
+*/
+
+/* C
+SELECT (
+    SELECT COUNT(DISTINCT c1.embassy_id)
+    FROM cable c1, cable c2, reference r
+    WHERE 
+    	c1.id = r.cable_id AND
+    	c2.id = r.ref_cable_id AND
+    	c1.embassy_id = c2.embassy_id
+) AS Veleposlanistva, (
+    SELECT COUNT(DISTINCT r.cable_id)
+    FROM reference r
+    WHERE
+    	r.cable_id = r.ref_cable_id
+) as Depese
+*/
+
+
+/*
+CREATE DATABASE Social
+
+USE social;
+CREATE TABLE oseba (
+    id INT NOT NULL AUTO_INCREMENT,
+    ime VARCHAR(30) NOT NULL,
+    rojstni_dan DATE NULL,
+    PRIMARY KEY (id)
+)
+
+INSERT INTO oseba (ime, rojstni_dan) VALUES ('Jože', '1990-08-06')
+
+DELETE FROM Facebook WHERE (oseba_id = 3 AND prijatelj_id = 4) OR (oseba_id = 4 AND prijatelj_id = 3)
+
+CREATE USER 'Misko'@'%' IDENTIFIED BY 'Kranjec.01';
+GRANT ALL PRIVILEGES ON social.* TO 'Misko'@'%';
+FLUSH PRIVILEGES /* posodobi
+
+
+
+

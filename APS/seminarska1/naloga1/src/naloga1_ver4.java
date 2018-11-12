@@ -1,12 +1,9 @@
 import java.io.*;
 
 public class naloga1_ver4 {
-<<<<<<< HEAD
 	public static final int PRIME = 201;
 	public static final int PRIMEC = 47;
-=======
-	public static final int PRIME = 4007;
->>>>>>> c4f3bf9facfa82c3533c32f1981dec2d9f3d7c82
+
 	
 	
 	public static class State {
