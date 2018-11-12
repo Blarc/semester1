@@ -1,11 +1,10 @@
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
-
-public class naloga1_ver3_tab {
-	public static final int PRIME = 20431;
+public class naloga1_ver3 {
+	
 	
 	public static class State {
 		final int[] pos;
@@ -18,29 +17,28 @@ public class naloga1_ver3_tab {
 			this.ongoing = ongoing;
 		}
 		
-		public int makeKey() {
-			int[] array = new int[ongoing.length * 2];
+		public String makeKey() {
+			String key = "";
 			for (int i = 0; i < ongoing.length; i++) {
-				array[i] = ongoing[i];
-				array[i+ongoing.length] = completed[i];
+				key += ongoing[i];
+				key += completed[i];
 			}
-			//System.out.println(Arrays.toString(array));
-		
-		    int h = (1 << array.length);
-		    for (int i = 0; i < array.length; i++) {
-		        h = h | (array[i] << (array.length - i - 1));
-		    }
-		    return h;
+			
+			key = toHex(key);
+			key += pos[0];
+			key += pos[1];
+			
+			return key;
 		}
-		
 	}
 	
-	public static String tooString(int[] array) {
-		String nov = "";
-		for (int i = 0; i < array.length; i++) {
-			nov += array[i] + ",";
+	public static boolean compareArrays(int[] a, int[] b) {
+		for (int i = 0; i < a.length; i++) {
+			if (a[i] != b[i]) {
+				return false;
+			}
 		}
-		return nov;
+		return true;
 	}
 	
 	public static int abs(int n) {
@@ -53,23 +51,34 @@ public class naloga1_ver3_tab {
 		return abs(a[0] - b[0]) + abs(a[1] - b[1]);
 	}
 	
+	public static String toHex(String a) {
+		int decimal = Integer.parseInt(a,2);
+		String hexStr = Integer.toString(decimal,16);
+		return hexStr;
+	}
 	
-	public static int[] fun(int[] taxi, int[][] starti, int[][] cilji, int[] ongoing, int[] completed, int left, int m, int index, int n, int atm, int[][][][] states) {
+	
+	public static int count = 0;
+	public static int fun(int[] taxi, int[][] starti, int[][] cilji, int[] ongoing, int[] completed, int left, int m, int index, int n, int atm, String[] map, int[] vals) {
 		int[] tab = new int[m*2+1];
-		int[] min = new int[m*2+1];
-		min[m*2] = Integer.MAX_VALUE;
+		int minVal = Integer.MAX_VALUE;
 		
 		if (left == 0) {
-			return tab;
+			return 0;
 		}
 		
 		State curState = new State(taxi, ongoing, completed);
-		int key = curState.makeKey();
-		if (states[taxi[0]][taxi[1]][key%PRIME] != null) {
-			return states[taxi[0]][taxi[1]][key%PRIME];
-		}
+		String key = curState.makeKey();
+		//System.out.println(key);
 		
-		for (int i = 0; i < m; i++) {	
+		for (int i = 0; i < count; i++) {
+			if(key.equals(map[i])) {
+				return vals[i];
+			}
+		}
+		//SHOULD BE HASHTABLE AND IT IS!!!
+		
+		for (int i = 0; i < m; i++) {
 			if (completed[i] < 1) {
 				int oldOngoing = ongoing[i];
 				int oldCompleted = completed[i];
@@ -77,22 +86,21 @@ public class naloga1_ver3_tab {
 				if (ongoing[i] > 0) {
 					ongoing[i] = 0;
 					completed[i] = 1;
-					tab = fun(cilji[i], starti, cilji, ongoing, completed, left-1, m, index+1, n, atm-1, states);
+					int val = razdalja(taxi, cilji[i]) + fun(cilji[i], starti, cilji, ongoing, completed, left-1, m, index+1, n, atm-1, map, vals);
 					tab[index] = i+1;
 					
-					if (tab[m*2] < min[m*2]) {
-						min = tab;
+					if (val < minVal) {
+						minVal = val;
 					}
 					
 				} 
 				else if (atm < n) {
 					ongoing[i] = 1;
-					tab = fun(starti[i], starti, cilji, ongoing, completed, left, m, index+1, n, atm+1, states);
-					tab[m*2] += razdalja(taxi, starti[i]);
+					int val = razdalja(taxi, starti[i]) + fun(starti[i], starti, cilji, ongoing, completed, left, m, index+1, n, atm+1, map, vals);
 					tab[index] = i+1;
 					
-					if (tab[m*2] < min[m*2]) {
-						min = tab;
+					if (val < minVal) {
+						minVal = val;
 					}	
 				}
 				
@@ -101,8 +109,10 @@ public class naloga1_ver3_tab {
 			}			
 		}
 		
-		states[taxi[0]][taxi[1]][key%PRIME] = min;
-		return min;
+		map[count] = key;
+		vals[count] = minVal;
+		count++;
+		return minVal;
 	}
 	
 	
@@ -129,17 +139,23 @@ public class naloga1_ver3_tab {
 		int[] completed = new int[m];
 		int[] ongoing = new int[m];
 		
-		String[][] strankeNizi = new String[m][5];
-		int[][][][] states = new int[200][200][PRIME][m*2+1];
+		String[] map = new String[100000];
+		int[] vals = new int[100000];
 		
-		/*
-		int[] a = {1,0,1,1};
-		int[] b = {0,0,0,0};
-		int[] pos = {15, 15};
+		//Map <String, Integer> states = new HashMap<String, Integer>();
+		
+		/*int[] a = {1,0,1};
+		int[] b = {0,0,1};
+		int[] pos = {17, 10};
 		
 		State nov = new State(pos, a, b);
-		System.out.println(nov.makeKey());
-		*/
+		String key = nov.makeKey();
+		states.put(key, 3);
+		if (states.containsKey(key)) {
+			System.out.println(states.get(key));
+		}*/
+		
+		String[][] strankeNizi = new String[m][5];	
 
 		for (int i = 0; i < m; i++) {
 			strankeNizi[i] = br.readLine().split(",");
@@ -155,9 +171,9 @@ public class naloga1_ver3_tab {
 		System.out.println("m: " + m);
 		System.out.println("Stranke: " + Arrays.deepToString(starti));
 		
+		System.out.println(fun(taxi, starti, cilji, ongoing, completed, m, m, 0, n, 0, map, vals));
 		
-
-		System.out.println(Arrays.toString(fun(taxi, starti, cilji, ongoing, completed, m, m, 0, n, 0, states)));
+	
 		
 		long stopTime = System.currentTimeMillis();
 	    long elapsedTime = stopTime - startTime;

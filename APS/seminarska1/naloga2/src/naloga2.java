@@ -1,7 +1,6 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Arrays;
 
 public class naloga2 {
 
@@ -20,7 +19,7 @@ public class naloga2 {
         }
 
 
-        //v zadnjo se zapiše oboje
+        //v zadnjo se zapise oboje
         public boolean alloc(int size, int id) {
             if (idTab[id-1] == 0) {
                 for (int i = atm; i < length; i += tab[i][1]) {
@@ -94,9 +93,14 @@ public class naloga2 {
         //CLEAN UP AWAITS
         public void defrag(int a) {
             for (int j = 0; j < a; j++) {
-                while(tab[atm][0] != 0) {
+                while(tab[atm][0] != 0 && atm < length) {
                     atm += tab[atm][1];
                 }
+                
+                if (tab[atm][0] != 0) {
+                	return;
+                }
+                
                 int next = tab[atm][1];
                 int temp = next;
 
@@ -121,24 +125,11 @@ public class naloga2 {
                 idTab[tab[atm][0] - 1] -= temp;
             }
         }
-
-        /*public void defrag(int a) {
-            for (int i = 0; i < a; i++) {
-                while(tab[atm][0] != 0) {
-                    atm += tab[atm][1];
-                }
-                int next = tab[atm][1];
-                int id = tab[atm + next][0];
-                int size = tab[atm + next][1];
-                free(id);
-                alloc(size, id);
-            }
-        }*/
     }
 
     public static void main(String[] args) throws IOException{
         long startTime = System.currentTimeMillis();
-        if(args.length < 0) {
+        if(args.length < 1) {
             System.out.println("Uporaba: java naloga2 <vhodna datoteka> <izhodna datoteka>");
             System.exit(1);
         }
@@ -175,10 +166,11 @@ public class naloga2 {
                     break;
                     default: System.out.println("invalid");
             }
-            if (i == n-1) {
+           /* if (i == n-1) {
                 System.out.println(Arrays.toString(line));
-            }
+            } */
         }
+        br.close();
 
 
         int[][] tab = plswork.tab;
