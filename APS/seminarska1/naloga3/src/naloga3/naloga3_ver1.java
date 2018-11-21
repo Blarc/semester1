@@ -104,18 +104,19 @@ public class naloga3_ver1 {
 		int id;
 		int start;
 		int end;
+		int len;
 		
-		public Blok(int id, int start, int end) {
+		public Blok(int id, int start, int end, int len) {
 			this.id = id;
 			this.start = start;
 			this.end = end;
+			this.len = len;
 		}
 		
 		public String toString() {
-			return "[" + id + ", " + start + ", " + end + "]";
+			return "[" + id + ", " + start + ", " + end + ", " + len + "]";
 		}
 	}
-
 
 	
 	public static void main(String[] args) throws IOException {
@@ -132,20 +133,62 @@ public class naloga3_ver1 {
 		LinkedList list = new LinkedList();
 		
 		String readLine;
+		Blok novBlok;
+		int oldEnd = -1;
 		while ((readLine = br.readLine()) != null) {
 			String[] line = readLine.split(",");
 			//System.out.println(Arrays.toString(line));
 			
-			Blok novBlok = new Blok(Integer.parseInt(line[0]),
-									Integer.parseInt(line[1]),
-									Integer.parseInt(line[2]));
+			int id = Integer.parseInt(line[0]); 
+			int start = Integer.parseInt(line[1]);
+			int end = Integer.parseInt(line[2]);
+			int len = end - start + 1;
+			
+			//create empty blocks
+			/*if (oldEnd+1 != start) {
+				novBlok = new Blok(0, oldEnd+1, start-1, start - oldEnd - 1);
+				list.addLast(novBlok);
+			}*/
+			
+			//create full blocks
+			novBlok = new Blok(id, start, end, len);
 			
 			list.addLast(novBlok);
+			oldEnd = end;
 		}
 		
 		list.write();
 		
 			
+		int idealStart = 0;
+		int frej = 0;
+		for (LinkedListElement i = list.first.next; i != null; i = i.next) {
+			Blok atmI = (Blok)i.element;
+			if (idealStart == atmI.start) {
+				//je kul, so eden za drugim
+			}
+			if (idealStart != atmI.start) {
+				LinkedListElement best;
+				int bestId = -1;
+				int max = 0;
+				frej += atmI.start - idealStart;
+				for (LinkedListElement j = i; j != null; j = j.next) {
+					Blok atmJ = (Blok)j.element;
+					if (atmJ.len == frej) {
+						bestId = atmJ.id;
+						best = j;
+						max = atmJ.len;
+					}
+					else if (atmJ.len < frej && atmJ.len > max) {
+						bestId = atmJ.id;
+						max = atmJ.len;
+						best = j;		
+					}
+				}
+				System.out.println("Id: " + bestId + " Max: " + max);
+			}
+			idealStart = atmI.end+1;
+		}
 		
 		long stopTime = System.currentTimeMillis();
 	    long elapsedTime = stopTime - startTime;
