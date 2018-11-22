@@ -162,32 +162,44 @@ public class naloga3_ver1 {
 			
 		int idealStart = 0;
 		int frej = 0;
+		
+		
+		LinkedListElement prev = list.first;
 		for (LinkedListElement i = list.first.next; i != null; i = i.next) {
 			Blok atmI = (Blok)i.element;
 			if (idealStart == atmI.start) {
 				//je kul, so eden za drugim
 			}
-			if (idealStart != atmI.start) {
-				LinkedListElement best;
+			//System.out.println("Ideal: " + idealStart + " Actual: " + atmI.start);
+			if (idealStart < atmI.start) {
+				Blok best = (Blok)list.first.element;
 				int bestId = -1;
 				int max = 0;
-				frej += atmI.start - idealStart;
+				frej = atmI.start - idealStart;
 				for (LinkedListElement j = i; j != null; j = j.next) {
 					Blok atmJ = (Blok)j.element;
 					if (atmJ.len == frej) {
 						bestId = atmJ.id;
-						best = j;
+						best = atmJ;
 						max = atmJ.len;
+						
+
 					}
 					else if (atmJ.len < frej && atmJ.len > max) {
 						bestId = atmJ.id;
 						max = atmJ.len;
-						best = j;		
+						best = atmJ;
 					}
+					
+					
 				}
+				best.start = idealStart;
+				best.end = idealStart + best.len;
 				System.out.println("Id: " + bestId + " Max: " + max);
 			}
-			idealStart = atmI.end+1;
+			idealStart += atmI.len;
+			
+			prev = i;
 		}
 		
 		long stopTime = System.currentTimeMillis();
