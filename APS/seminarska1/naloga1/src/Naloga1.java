@@ -1,8 +1,6 @@
 import java.io.*;
-import java.util.Arrays;
 
-
-public class naloga1_perm_ver1 {
+public class Naloga1 {
 	
 	public static int abs(int n) {
 		if (n < 0) {
@@ -43,7 +41,7 @@ public class naloga1_perm_ver1 {
 					completed[i] = 1;
 
 					if (raz + razdalja(taxi, cilji[i]) < min) {
-						tab[index] = i+1;
+						tab[index] = cilji[i][2];
 						fun(cilji[i], ongoing, completed, left-1, index+1, atm-1, raz + razdalja(taxi, cilji[i]), tab);
 						tab[index] = 0;
 					}
@@ -55,7 +53,7 @@ public class naloga1_perm_ver1 {
 					ongoing[i] = 1;
 
 					if (raz + razdalja(taxi, starti[i]) < min) {
-						tab[index] = i+1;
+						tab[index] = starti[i][2];
 						fun(starti[i], ongoing, completed, left, index+1, atm+1, raz + razdalja(taxi, starti[i]), tab);
 						tab[index] = 0;
 					}
@@ -77,7 +75,7 @@ public class naloga1_perm_ver1 {
 	public static void main(String[] args) throws IOException {
 		
 		long startTime = System.currentTimeMillis();
-		if(args.length < 1) {
+		if(args.length < 2) {
 			System.out.println("Uporaba: java naloga1 <podatki> <resitev>");
 			System.exit(1);
 		}
@@ -91,8 +89,8 @@ public class naloga1_perm_ver1 {
 		line = br.readLine().split(",");
 		m = Integer.parseInt(line[0]);
 		
-		starti = new int[m][2];
-		cilji = new int[m][2];
+		starti = new int[m][3];
+		cilji = new int[m][3];
 		int[] completed = new int[m];
 		int[] ongoing = new int[m];
 		int[] tab = new int[m*2];
@@ -105,19 +103,24 @@ public class naloga1_perm_ver1 {
 			strankeNizi[i] = br.readLine().split(",");
 			starti[i][0] = Integer.parseInt(strankeNizi[i][1]);
 			starti[i][1] = Integer.parseInt(strankeNizi[i][2]);
+			starti[i][2] = Integer.parseInt(strankeNizi[i][0]);
 			cilji[i][0] = Integer.parseInt(strankeNizi[i][3]);
 			cilji[i][1] = Integer.parseInt(strankeNizi[i][4]);
+			cilji[i][2] = Integer.parseInt(strankeNizi[i][0]);
 		}
 		
 		
-		System.out.println("n: " + n);
-		System.out.println("taxi: " + Arrays.toString(taxi));
-		System.out.println("m: " + m);
-		System.out.println("Stranke: " + Arrays.deepToString(starti));
+		PrintWriter writer = new PrintWriter(new FileWriter(args[1]));
 		
 		fun(taxi, ongoing, completed, m, 0, 0, 0, tab);
-		System.out.println(min);
-		System.out.println(Arrays.toString(best));
+		
+		for (int i = 0; i < m*2; i++) {
+			if (i == m*2 - 1) {
+				writer.write(best[i] + "");
+			} else {
+				writer.write(best[i] + ",");
+			}
+		}
 		
 		
 		long stopTime = System.currentTimeMillis();
@@ -125,6 +128,7 @@ public class naloga1_perm_ver1 {
 	    System.out.println("Elapsed time: " + elapsedTime + " ms");
 		
 		br.close();
+		writer.close();
 	}
 
 }

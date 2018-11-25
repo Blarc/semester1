@@ -1,8 +1,11 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 
-public class naloga2 {
+
+public class Naloga2 {
 
     public static class Malloc {
         int vseh = 0;
@@ -128,8 +131,8 @@ public class naloga2 {
     }
 
     public static void main(String[] args) throws IOException{
-        long startTime = System.currentTimeMillis();
-        if(args.length < 1) {
+        //long startTime = System.currentTimeMillis();
+        if(args.length < 2) {
             System.out.println("Uporaba: java naloga2 <vhodna datoteka> <izhodna datoteka>");
             System.exit(1);
         }
@@ -138,7 +141,7 @@ public class naloga2 {
         String[] line;
         line = br.readLine().split(" ");
         int n = Integer.parseInt(line[0]);
-        System.out.println("n: " + n);
+        //System.out.println("n: " + n);
 
 
         Malloc plswork = new Malloc();
@@ -172,23 +175,28 @@ public class naloga2 {
         }
         br.close();
 
-
+        
+        PrintWriter writer = new PrintWriter(new FileWriter(args[1]));
+        
         int[][] tab = plswork.tab;
         for (int i = 0; i < plswork.length; i += tab[i][1]) {
             int id = tab[i][0];
             int start = i;
             int end = start + tab[i][1] - 1;
             if (tab[i][0] != 0) {
-                System.out.println(id + "," + start + "," + end);
+                //System.out.println(id + "," + start + "," + end);
+                writer.println(id + "," + start + "," + end + "");
             }
 
         }
 
+        
+        writer.close();
         //System.out.println("ATM: " + plswork.atm);
         //System.out.println(Arrays.toString(plswork.idTab));
         //System.out.println(Arrays.deepToString(plswork.tab));
-        long stopTime = System.currentTimeMillis();
-        long elapsedTime = stopTime - startTime;
-        System.out.println("Elapsed Time: " + elapsedTime + " ms");
+        //long stopTime = System.currentTimeMillis();
+        //long elapsedTime = stopTime - startTime;
+        //System.out.println("Elapsed Time: " + elapsedTime + " ms");
     }
 }

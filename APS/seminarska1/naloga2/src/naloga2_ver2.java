@@ -129,7 +129,7 @@ public class naloga2_ver2 {
         public boolean alloc(int size, int id) {
         	if (idTab[id-1] == null) {
         		for (int i = 0; i < length && atm.next != null; i++) {
-        			Blok tmp = (Blok)atm.next.element; ////////////////////////////////// wierd, but it works...
+        			Blok tmp = (Blok)atm.next.element;
         			if (tmp.size >= size && tmp.id == 0) {
         				vseh++;
         				idTab[id-1] = atm;

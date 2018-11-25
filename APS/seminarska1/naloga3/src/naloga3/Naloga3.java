@@ -5,9 +5,11 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Arrays;
 
 
-public class naloga3_ver2 {
+
+public class Naloga3 {
 	
 	public static class LinkedListElement  
 	{
