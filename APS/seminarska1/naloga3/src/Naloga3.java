@@ -1,5 +1,3 @@
-package naloga3;
-
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -128,11 +126,11 @@ public class Naloga3 {
 	public static int min = Integer.MAX_VALUE;
 	
 	public static void fri(LinkedList list, LinkedListElement atm, int idealStart, int razdalja, int stevec, int[][] tab, int index) {
-
+		
 		
 		if (stevec == 0) {
-			//System.out.println("------------------------------------------------------------------------------------------");
-			//System.out.println(Arrays.deepToString(tab));
+			System.out.println("------------------------------------------------------------------------------------------");
+			System.out.println(Arrays.deepToString(tab));
 			if (razdalja < min) {
 				min = razdalja;
 				for (int i = 0; i < tab.length; i++) {
@@ -140,16 +138,16 @@ public class Naloga3 {
 					best[i][1] = tab[i][1];
 				}
 			}
-			//System.out.println("Razdalja: " + razdalja);
+			System.out.println("Razdalja: " + razdalja);
 			return;
 		}
 		
 			
 		Blok atmBlok = (Blok)atm.next.element;
 		
-		//if(razdalja >= min) {
-		//	return;
-		//}
+		/*if(razdalja >= min) {
+			return;
+		}*/
 		
 		//ce je PRVI blok ze poravnan
 		if (atmBlok.start == idealStart) {
@@ -173,7 +171,7 @@ public class Naloga3 {
 					novBlok.poravnan = true;
 					tab[index][0] = novBlok.id;
 					tab[index][1] = idealStart;
-					fri(list, atm.next, idealStart + novBlok.len, razdalja + novBlok.len, stevec - 1, tab, index+1);
+					fri(list, atm.next, idealStart + novBlok.len, razdalja + novBlok.len, stevec-1, tab, index+1);
 					tab[index][0] = 0;
 					tab[index][1] = 0;
 					novBlok.poravnan = false;
@@ -186,7 +184,7 @@ public class Naloga3 {
 					tab[index][0] = novBlok.id;
 					tab[index][1] = idealStart;
 					//ce smo poravnali kak drug blok
-					fri(list, atm, idealStart + novBlok.len, razdalja + novBlok.len, stevec - 1, tab, index+1);	
+					fri(list, atm, idealStart + novBlok.len, razdalja + novBlok.len, stevec-1, tab, index+1);	
 					tab[index][0] = 0;
 					tab[index][1] = 0;
 					novBlok.poravnan = false;
@@ -199,7 +197,7 @@ public class Naloga3 {
 
 	
 	public static void main(String[] args) throws IOException {
-		//long startTime = System.currentTimeMillis();
+		long startTime = System.currentTimeMillis();
 		
 		if(args.length < 1) {
 			System.out.println("Uporaba: java naloga1 <podatki> <resitev>");
@@ -233,11 +231,11 @@ public class Naloga3 {
 		fri(list, list.first, 0, 0, numOfBlocks, tab, 0);
 		
 		PrintWriter writer = new PrintWriter(new FileWriter(args[1]));
-		//System.out.println("------------------------------------- OUTPUT ---------------------------------------------");
-		//list.write();
-		//System.out.println("Number of blocks: " + numOfBlocks);
-		//System.out.println(Arrays.deepToString(best));
-		//System.out.println(min);
+		System.out.println("------------------------------------- OUTPUT ---------------------------------------------");
+		list.write();
+		System.out.println("Number of blocks: " + numOfBlocks);
+		System.out.println(Arrays.deepToString(best));
+		System.out.println(min);
 		for (int i = 0; i < numOfBlocks; i++) {
 			if (best[i][0] == 0) {
 				break;
@@ -245,9 +243,9 @@ public class Naloga3 {
 			writer.println(best[i][0] + "," + best[i][1]);
 		}
 		
-		//long stopTime = System.currentTimeMillis();
-	    //long elapsedTime = stopTime - startTime;
-	    //System.out.println("Elapsed time: " + elapsedTime + " ms");
+		long stopTime = System.currentTimeMillis();
+	    long elapsedTime = stopTime - startTime;
+	    System.out.println("Elapsed time: " + elapsedTime + " ms");
 		
 		br.close();
 		writer.close();

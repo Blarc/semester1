@@ -3,7 +3,6 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Arrays;
 
 public class Naloga4 {
 	
@@ -30,12 +29,12 @@ public class Naloga4 {
 			this.next = next;
 		}
 		
-		public void toPrint() {
+		/*public void toPrint() {
 			for (Blok i = this; i != null; i = i.next) {
 				System.out.print(Arrays.toString(i.seznam));
 			}
 			System.out.println();
-		}
+		}*/
 		
 		public void init(int n) {
 			this.count = 0;
@@ -52,10 +51,6 @@ public class Naloga4 {
 					tmp2 = seznam[i+1];
 					seznam[i+1] = tmp1;
 					tmp1 = tmp2;
-					
-					/*if (seznam[i+1] == 0) {
-						break;
-					}*/
 				}	
 			}
 		}
@@ -80,7 +75,8 @@ public class Naloga4 {
 		
 		public void collapse() {
 			for (int i = 0; i < next.count && seznam[i] != 0; i++) {
-				seznam[count+i] = next.seznam[i];
+				seznam[count] = next.seznam[i];
+				count++;
 			}
 		}
 		
@@ -88,7 +84,7 @@ public class Naloga4 {
 			//ce je veljavno
 			if (-1 < pos && pos <= all) {
 				//ce spada v ta blok
-				if (pos <= count) {
+				if (pos <= count && pos < len) {
 					//ce je se kak prazen plac v seznamu
 					if (count < len) {
 						//ce je mesto prazno
@@ -130,7 +126,7 @@ public class Naloga4 {
 		public boolean remove(int pos) {
 			if (-1 < pos && pos < all) {
 				//ce spada v ta blok
-				if (pos < count) {
+				if (pos < count && pos < len) {
 					//ga zbrisemo
 					seznam[pos] = 0;
 					moveLeft(pos);
@@ -138,14 +134,15 @@ public class Naloga4 {
 					//ce po brisanju elementov v tem clenu pod N/2
 					int half = len/2;
 					if (count < half && next != null) {
-						insert(next.seznam[0], half-1);
-						next.remove(0);
-						//ce po brisanju elementov v naslednjem clenu pod N/2
-						
-						if (next.count < half) {
+						//ce po brisanju elementov v naslednjem clenu pod N/2	
+						if (next.count - 1 < half) {
 							collapse();
-							next = null;
+							next = next.next;
 							stBlokov--;
+						}
+						else {
+							insert(next.seznam[0], half-1);
+							next.remove(0);
 						}
 					}
 				}
@@ -175,10 +172,8 @@ public class Naloga4 {
 		String[] line = readLine.split(" ");
 		int n = Integer.parseInt(line[0]);
 		
-		
+		PrintWriter writer = new PrintWriter(new FileWriter(args[1]));
 		Blok first = new Blok();
-	    int a = 0;
-	    int b = 0;
 		
         for (int i = 0; i < n; i++) {
             line = br.readLine().split(",");
@@ -193,36 +188,19 @@ public class Naloga4 {
                     int pos = Integer.parseInt(line[2]);
                     if (first.insert(id, pos)) {
                     	all++;
-                    	//a++;
                     }
-                    a++;
-                    /*System.out.println("--------------------------------");
-                    System.out.println(i + ": ");
-                    for (Blok j = first; j != null; j = j.next) {
-                    	System.out.println(Arrays.toString(j.seznam));
-                    }*/
                     break;
                 case "r":
                 	if (first.remove(id)) {
                 		all--;
-                		//b++;
                 	}
-                	b++;
-                	/*System.out.println("--------------------------------");
-                	System.out.println(i + ": ");
-                	for (Blok j = first; j != null; j = j.next) {
-                    	System.out.println(Arrays.toString(j.seznam));
-                    }*/
                     break;
                 default: System.out.println("invalid");
             }
         }
 		
         br.close();
-        PrintWriter writer = new PrintWriter(new FileWriter(args[1]));
-		
-        //first.toPrint();
-   
+        
         
         writer.println(stBlokov);
         for (Blok i = first; i != null; i = i.next) {
@@ -246,14 +224,10 @@ public class Naloga4 {
         	}
         	writer.println();
         }
-        
-        System.out.println(all);
-        System.out.println(a);
-        System.out.println(b);
-        System.out.println(a - b);
+        /*System.out.println("--------------- OUTPUT -----------------");
         for (Blok j = first; j != null; j = j.next) {
         	System.out.println(Arrays.toString(j.seznam));
-        }
+        }*/
 		long stopTime = System.currentTimeMillis();
 	    long elapsedTime = stopTime - startTime;
 	    System.out.println("Elapsed time: " + elapsedTime + " ms");

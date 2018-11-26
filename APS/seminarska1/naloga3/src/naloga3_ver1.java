@@ -1,9 +1,8 @@
-package naloga3;
+
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Arrays;
 
 
 
@@ -134,7 +133,7 @@ public class naloga3_ver1 {
 		
 		String readLine;
 		Blok novBlok;
-		int oldEnd = -1;
+		int oldEnd;
 		while ((readLine = br.readLine()) != null) {
 			String[] line = readLine.split(",");
 			//System.out.println(Arrays.toString(line));
