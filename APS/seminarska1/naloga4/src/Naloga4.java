@@ -60,6 +60,10 @@ public class Naloga4 {
 				seznam[i] = seznam[i+1];
 				seznam[i+1] = 0;
 			}
+			if (count > 1) {
+				seznam[count-1] = 0;
+			}
+			
 		}
 		
 		public void split() {
@@ -78,6 +82,7 @@ public class Naloga4 {
 				seznam[count] = next.seznam[i];
 				count++;
 			}
+			
 		}
 		
 		public boolean insert(int id, int pos) {
@@ -128,7 +133,6 @@ public class Naloga4 {
 				//ce spada v ta blok
 				if (pos < count && pos < len) {
 					//ga zbrisemo
-					seznam[pos] = 0;
 					moveLeft(pos);
 					count--;
 					//ce po brisanju elementov v tem clenu pod N/2
@@ -189,11 +193,19 @@ public class Naloga4 {
                     if (first.insert(id, pos)) {
                     	all++;
                     }
+                    /*System.out.println("Insert: " + id + " " + pos);
+                    for (Blok j = first; j != null; j = j.next) {
+                    	System.out.println(Arrays.toString(j.seznam));
+                    }*/
                     break;
                 case "r":
                 	if (first.remove(id)) {
                 		all--;
                 	}
+                	/*System.out.println("Remove: " + id);
+                	for (Blok j = first; j != null; j = j.next) {
+                    	System.out.println(Arrays.toString(j.seznam));
+                    }*/
                     break;
                 default: System.out.println("invalid");
             }
