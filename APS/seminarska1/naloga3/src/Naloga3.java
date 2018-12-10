@@ -3,6 +3,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Arrays;
 
 
 public class Naloga3 {
@@ -152,14 +153,14 @@ public class Naloga3 {
 			Blok nov = (Blok)i.element;
 			
 			if (!nov.poravnan) {	
-				if (nov.start == idealStart) {
+				/*if (nov.start == idealStart) {
 					nov.poravnan = true;
 					fri(list, atm.next, idealStart + nov.len, razdalja, stevec-1, tab, index);
 					nov.poravnan = false;
 					return;
-				}
+				}*/
 				
-				else if(razdalja + nov.len < min) {
+				if(razdalja + nov.len < min) {
 					nov.poravnan = true;
 					if (atm == i) {
 						tab[index][0] = nov.id;
@@ -190,7 +191,7 @@ public class Naloga3 {
 
 	
 	public static void main(String[] args) throws IOException {
-		//long startTime = System.currentTimeMillis();
+		long startTime = System.currentTimeMillis();
 		
 		if(args.length < 2) {
 			System.out.println("Uporaba: java naloga1 <podatki> <resitev>");
@@ -227,8 +228,8 @@ public class Naloga3 {
 		//System.out.println("------------------------------------- OUTPUT ---------------------------------------------");
 		//list.write();
 		//System.out.println("Number of blocks: " + numOfBlocks);
-		//System.out.println(Arrays.deepToString(best));
-		//System.out.println(min);
+		System.out.println(Arrays.deepToString(best));
+		System.out.println(min);
 		for (int i = 0; i < numOfBlocks; i++) {
 			if (best[i][0] == 0) {
 				break;
@@ -236,9 +237,9 @@ public class Naloga3 {
 			writer.println(best[i][0] + "," + best[i][1]);
 		}
 		
-		//long stopTime = System.currentTimeMillis();
-	    //long elapsedTime = stopTime - startTime;
-	    //System.out.println("Elapsed time: " + elapsedTime + " ms");
+		long stopTime = System.currentTimeMillis();
+	    long elapsedTime = stopTime - startTime;
+	    System.out.println("Elapsed time: " + elapsedTime + " ms");
 		
 		br.close();
 		writer.close();
