@@ -13,7 +13,6 @@ public class Naloga6_ver1 {
 		int start;
 		int end;
 		int heigth;
-		boolean done = false;
 		
 		public Path (int start, int end, int heigth) {
 			this.start = start;
@@ -27,8 +26,10 @@ public class Naloga6_ver1 {
 		}
 	}
 	
-	
+	public static boolean[] help;
+	public static int count = 0;
 	public static void fri(int atmPos, int end, int maxH, HashMap<Integer,LinkedList<Path>> paths) {
+		
 		if (atmPos == end) {
 			count++;
 			return;
@@ -37,11 +38,11 @@ public class Naloga6_ver1 {
 		Iterator<Path> iter = paths.get(atmPos).iterator();
 		while (iter.hasNext()) {
 			Path atm = iter.next();
-			if (!atm.done) {
+			if (!help[atmPos]) {
 				if (atm.heigth >= maxH || atm.heigth == -1) {
-					atm.done = true;
+					help[atmPos] = true;
 					fri(atm.end, end, maxH, paths);
-					atm.done = false;
+					help[atmPos] = false;
 				}
 			}
 		}
@@ -49,8 +50,6 @@ public class Naloga6_ver1 {
 		return;
 	}
 	
-	
-	public static int count = 0;
 	
 	public static void main(String[] args) throws IOException {
 		long startTime = System.currentTimeMillis();
@@ -60,7 +59,8 @@ public class Naloga6_ver1 {
 			System.exit(1);
 		}
 		
-		BufferedReader br = new BufferedReader(new FileReader(args[0]));
+		BufferedReader br = new BufferedReader(new FileReader("/home/jakob/Documents/semster1/APS/seminarska2/naloga6_testi/I_10.txt"));
+		//BufferedReader br = new BufferedReader(new FileReader(args[0]));
 		
 		int n;
 		
@@ -68,9 +68,10 @@ public class Naloga6_ver1 {
 		String[] line;
 		
 		readLine = br.readLine();
-		line = readLine.split("");
+		line = readLine.split(" ");
 		n = Integer.parseInt(line[0]);
 		System.out.println("n: " + n);
+		help = new boolean[n*2];
 		
 		HashMap<Integer,LinkedList<Path>> paths = new HashMap<Integer, LinkedList<Path>>();
 		
@@ -87,6 +88,12 @@ public class Naloga6_ver1 {
 			
 			paths.get(start).add(new Path(start, end, heigth));
 			
+			if (paths.get(end) == null) {
+				paths.put(end, new LinkedList<Path>());
+			}
+			
+			paths.get(end).add(new Path(end, start, heigth));
+			
 		}
 		
 		readLine = br.readLine();
@@ -100,16 +107,18 @@ public class Naloga6_ver1 {
 		int maxH = Integer.parseInt(line[0]);
 		System.out.printf("Max heigth: %d\n", maxH);
 		
+		br.close();
+		
 		System.out.println(paths.toString());
 		
 		fri(start, end, maxH, paths);
 		
+		PrintWriter writer = new PrintWriter(new FileWriter("/home/jakob/Documents/semster1/APS/seminarska2/naloga6_testi/testIzhod.txt"));
+		
 		System.out.println(count);
+		writer.println(count);
 		
-		br.close();
-		
-		//PrintWriter writer = new PrintWriter(new FileWriter(args[1]));
-		//writer.close();
+		writer.close();
 		
 		long stopTime = System.currentTimeMillis();
 	    long elapsedTime = stopTime - startTime;

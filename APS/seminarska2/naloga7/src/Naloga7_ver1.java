@@ -49,15 +49,15 @@ public class Naloga7_ver1 {
 			result[index].y = h;
 			result[index].x = w+1;
 			
-			if(fri(vertices.get(atm.left), result, index += 1, h += 1, w -= 2)) {
-				return true;
-			}
+
 			
+			return fri(vertices.get(atm.left), result, index += 1, h += 1, w -= 2) &&
+				   fri(result[index], result, index += 2, h += 1, w += 2);
 			/*if(fri(result[index], result, index += 2)) {
 				return true;
 			}*/
 			
-			return fri(result[index], result, index += 2, h += 1, w += 2);
+			//return fri(result[index], result, index += 2, h += 1, w += 2);
 			
 			/*if(fri(result[index], result, index += 2)) {
 				return true;
