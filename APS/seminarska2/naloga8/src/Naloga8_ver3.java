@@ -10,7 +10,7 @@ import java.util.LinkedList;
 import java.util.PriorityQueue;
 import java.util.Random;
 
-public class Naloga8_ver2 {
+public class Naloga8_ver3 {
 	public static class EdgeComparator implements Comparator<Edge> {
 		@Override
 		public int compare(Edge x, Edge y) {
@@ -39,9 +39,11 @@ public class Naloga8_ver2 {
 	
 
 	public static int maxLen;
-	public static HashMap<Integer, PriorityQueue<Edge>> edges = new HashMap<Integer, PriorityQueue<Edge>>();
+	public static HashMap<Integer, PriorityQueue<Edge>> edges;
 	public static void main(String[] args) throws IOException {
 		long startTime = System.currentTimeMillis();
+		int numOfVertices;
+		int n;
 		
 		if(args.length < 0) {
 			System.out.println("Uporaba: java naloga1 <podatki> <resitev>");
@@ -51,11 +53,14 @@ public class Naloga8_ver2 {
 		int test = 10;
 		BufferedReader br = new BufferedReader(new FileReader("/home/jakob/Documents/semster1/APS/seminarska2/naloga8_testi/I_"+test+".txt"));
 		Comparator<Edge> comparator = new EdgeComparator();
+	
 		
 		String readLine = br.readLine();
 		String[] line = readLine.split(" ");
-		int n = Integer.parseInt(line[0]);
+		n = Integer.parseInt(line[0]);
 		System.out.printf("n: %d\n", n);
+		
+		edges = new HashMap<Integer, PriorityQueue<Edge>>(n/2);
 		
 		int[] lenResult = new int[n+1];
 
@@ -82,61 +87,64 @@ public class Naloga8_ver2 {
 			lenResult[id] = len;
 		}
 		
+		numOfVertices = edges.size();
+		
 		readLine = br.readLine();
 		line = readLine.split(" ");
 		maxLen = Integer.parseInt(line[0]);
 //		System.out.printf("maxLen: %d\n", maxLen);
-		
 		br.close();
 		
-		int[] result = new int[n];
-		int count = 0;
-		int res = 0;
+//		ALGORITHM
 		
+//		Picks a random starting vertex
 		Random rand = new Random();
-		int startV = rand.nextInt(edges.size()) + 1;
-		System.out.println("Starting vertex: " + startV);
+		int startV = rand.nextInt(numOfVertices + 1);
 		
-		//System.out.println(edges);
-		boolean[] vertices = new boolean[n+1];
-		vertices[startV] = true;
-		
-		LinkedList<PriorityQueue<Edge>> doneVertices = new LinkedList<PriorityQueue<Edge>>();
-		doneVertices.add(edges.get(startV));
-		
-		System.out.println("Number of edges: " + edges.size());
-		for (int i = 0; i < edges.size(); i++) {
-			int min = Integer.MAX_VALUE;
-			PriorityQueue<Edge> minQueue = null;
-			for (PriorityQueue<Edge> iter : doneVertices) {
-				while (iter.peek() != null && (vertices[iter.peek().end] || iter.peek().len > maxLen)) {
-					iter.remove();
-				}
-				if (iter.peek() != null && iter.peek().len < min) {
-					min = iter.peek().len;
-					minQueue = iter;
-				}
-			}
-			if (minQueue != null) {
-				Edge temp = minQueue.remove();
-				vertices[temp.end] = true; 
-				doneVertices.add(edges.get(temp.end));
-				//System.out.println(temp.id);
-				result[count] = temp.id;
-				res += temp.len;
-			}
-			else {
-				if (i < edges.size()-1) {
-					System.out.println("Fail?");
-				}
-				break;
-			}	
+//		initializations
+		int res = 0;
+		boolean[] reached = new boolean[numOfVertices+1];
+		int[] keys = new int[numOfVertices+1];
+		for (int i = 0; i < keys.length; i++) {
+			keys[i] = Integer.MAX_VALUE;
 		}
 		
+		keys[1] = 0;
+		
+//		code
+		for (int i = 0; i < numOfVertices; i++) {
+			
+			//find the minimum key
+			int min = Integer.MAX_VALUE;
+			int minKey = -1;
+			for (int j = 1; j < keys.length; j++) {
+				if (keys[j] < min) {
+					if (!reached[j]) {
+						min = keys[j];
+						minKey = j;
+					}
+				}
+			}
+			
+			reached[minKey] = true;
+			res += min;
+//			System.out.println(edges.get(minKey));
+			for (Edge iter : edges.get(minKey)) {
+				if (keys[iter.end] > iter.len) {
+					keys[iter.end] = iter.len;
+				}
+			}
+		}
+		
+
+//		prints
+		System.out.println("Starting vertex: " + startV);
+		//System.out.println(edges);
+		System.out.println("RESULT: " + res);
+		//System.out.println(Arrays.toString(keys));
 		
 		
-		System.out.println("RES: " + res);
-		
+//		ACTUAL RESULT CALCULATION
 		BufferedReader br2 = new BufferedReader(new FileReader("/home/jakob/Documents/semster1/APS/seminarska2/naloga8_testi/O_"+test+".txt"));
 		readLine = br2.readLine();
 		line = readLine.split(",");
@@ -146,8 +154,9 @@ public class Naloga8_ver2 {
 		for (int i = 0; i < line.length; i++) {
 			actualResult += lenResult[Integer.parseInt(line[i])];
 		}
+		System.out.println("ACTUAL RESULT: " + actualResult);
 		
-		System.out.println("ACTUAL RES: " + actualResult);
+		
 		//PrintWriter writer = new PrintWriter(new FileWriter("/home/jakob/Documents/semster1/APS/seminarska2/naloga8_testi/testIzhod.txt"));
 
 		
