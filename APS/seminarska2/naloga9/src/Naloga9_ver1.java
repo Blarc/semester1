@@ -3,19 +3,22 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.Set;
 
 public class Naloga9_ver1 {
 	
 	public static class Person {
 		int id;
-		LinkedList<Person> friends;
+		Set<Integer> friends;
 		
 		public Person(int id) {
 			this.id = id;
-			this.friends = new LinkedList<Person>();
+			friends = new HashSet<Integer>();
+			friends.add(id);
 		}
 	}
 
@@ -31,14 +34,19 @@ public class Naloga9_ver1 {
 		int n;
 		String readLine;
 		String[] line;
-		Person[] people;
+		HashMap<Integer, Person> people;
+		LinkedList<Set> sets;
+		boolean bool = false;
 		
-		BufferedReader br = new BufferedReader(new FileReader(args[0]));
+		int test = 10;
+		BufferedReader br = new BufferedReader(new FileReader("/home/jakob/Documents/semster1/APS/seminarska2/naloga9_testi/I_"+test+".txt"));		
+		PrintWriter writer = new PrintWriter(new FileWriter("/home/jakob/Documents/semster1/APS/seminarska2/naloga9_testi/izhodTest.txt"));
 		
 		readLine = br.readLine();
-		line = readLine.split(" ");
-		n = Integer.parseInt(line[0]);
-		people = new Person[n];
+		n = Integer.parseInt(readLine);
+		people = new HashMap<Integer, Person>(n);
+		sets = new LinkedList<Set>();
+		sets.add(new HashSet<Integer>());
 		
 		for (int i = 0; i < n; i++) {
 			readLine = br.readLine();
@@ -46,45 +54,66 @@ public class Naloga9_ver1 {
 			int id1 = Integer.parseInt(line[0])-1;
 			int id2 = Integer.parseInt(line[1])-1;
 			
-			if (people[id1] == null) {
-				people[id1] = new Person(id1);
+			if (people.get(id1) == null) {
+				people.put(id1, new Person(id1));
 			}
 			
-			if (people[id2] == null) {
-				people[id2] = new Person(id2);
+			if (people.get(id2) == null) {
+				people.put(id2, new Person(id2));
 			}
 			
-			if (!people[id1].friends.contains(people[id2])) {
-				for (Person iter : people[id1].friends) {
-					iter.friends.add(people[id2]);
+			Iterator<Set> iterator = sets.iterator();
+			while (iterator.hasNext()) {
+				Set<Integer> iter = iterator.next();
+				
+				if (iter.contains(id1) && !iter.contains(id2)) {
+					bool = true;
+					iter.add(id2);
+					for (Set<Integer> iter2 : sets) {
+						if (iter != iter2) {
+							if (iter2.contains(id2)) {
+								iter.addAll(iter2);
+								//sets.remove(iter2);
+							}
+						}
+					}
+					
+					break;
 				}
-				people[id1].friends.add(people[id2]);
-			}
-			
-			else {
-				System.out.printf("%d,%d\n", id1+1, id2+1);
-			}
-			
-			if (!people[id2].friends.contains(people[id1])) {
-				for (Person iter : people[id2].friends) {
-					iter.friends.add(people[id1]);
+				else if (iter.contains(id2) && !iter.contains(id1)) {
+					bool = true;
+					iter.add(id1);
+					for (Set<Integer> iter2 : sets) {
+						if (iter != iter2) {
+							if (iter2.contains(id1)) {
+								iter.addAll(iter2);
+								//sets.remove(iter2);
+							}	
+						}
+					}
+					break;
 				}
-				people[id2].friends.add(people[id1]);
+				else if (iter.contains(id1) && iter.contains(id2)) {
+					bool = true;
+					//System.out.println("!!"+(id1+1)+","+(id2+1));
+					writer.println((id1+1)+","+(id2+1));
+					break;
+				}
 			}
 			
-			
-			else {
-				System.out.printf("%d,%d\n", id1+1, id2+1);
+			if (!bool) {
+				Set<Integer> temp = new HashSet<Integer>();
+				temp.add(id1);
+				temp.add(id2);
+				sets.add(temp);
 			}
-			//System.out.println(Arrays.toString(people));
+			bool = false;
 			
 		}
 		
 		
 		br.close();
-		
-		//PrintWriter writer = new PrintWriter(new FileWriter(args[1]));
-		//writer.close();
+		writer.close();
 		
 		long stopTime = System.currentTimeMillis();
 	    long elapsedTime = stopTime - startTime;

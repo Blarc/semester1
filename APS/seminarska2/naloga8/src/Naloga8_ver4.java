@@ -61,7 +61,7 @@ public class Naloga8_ver4 {
 			System.exit(1);
 		}
 		
-		int test = 10;
+		int test = 1;
 		BufferedReader br = new BufferedReader(new FileReader("/home/jakob/Documents/semster1/APS/seminarska2/naloga8_testi/I_"+test+".txt"));
 	
 		
@@ -180,6 +180,7 @@ public class Naloga8_ver4 {
 		writer.println();
 		writer.close();
 		
+		System.out.println(edges);
 		System.out.println("RESULT: " + res);
 		System.out.println("Number of vertices: " + numOfVertices);
 		System.out.println("Count " + count);
